@@ -1,0 +1,18 @@
+<div class="ui segment">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <h3 class="ui header"> Documents</h3>
+    <button mat-stroked-button color="primary" style="margin-top: -12px" (click)="openDialog()">Open</button>
+  </div>
+  <div class="ui divider"></div>
+  <div class="ui divided items" *ngFor="let d of documents let i=index ">
+    <div class="item" *ngIf="i<5">
+      <div class="ui mini image">
+        <img src="/assets/doc.jpg">
+      </div>
+      <div class="middle aligned content">
+        <a [href]="'http://localhost:8088/api/formation/download/'+d.id" target="_self"
+           class="ui small header">{{d.filename}}</a>
+      </div>
+    </div>
+  </div>
+</div>

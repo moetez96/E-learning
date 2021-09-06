@@ -1,0 +1,122 @@
+<div class="main-wrapper" fxLayout="column" fxLayoutAlign="center center" style="padding-top: 30px">
+  <mat-card class="box" style="padding: 20px 0px 0px 0px">
+    <mat-card-header>
+      <mat-card-title>Register</mat-card-title>
+    </mat-card-header>
+    <mat-stepper linear #stepper>
+      <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
+        <form [formGroup]="firstFormGroup" class="example-form">
+          <ng-template matStepLabel>Personal</ng-template>
+          <div>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="First Name" formControlName="firstName">
+            </mat-form-field>
+            <div *ngIf="submitted1 && f1.firstName.errors" class="invalid-feedback">
+              <mat-error *ngIf="f1.firstName.errors.required">First Name is required</mat-error>
+              <mat-error *ngIf="f1.firstName.errors.minlength">First Name must be at least 3 characters</mat-error>
+            </div>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Last Name" formControlName="lastName">
+            </mat-form-field>
+            <div *ngIf="submitted1 && f1.lastName.errors" class="invalid-feedback">
+              <mat-error *ngIf="f1.lastName.errors.required">Last Name is required</mat-error>
+              <mat-error *ngIf="f1.lastName.errors.minlength">Last Name must be at least 3 characters</mat-error>
+            </div>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Birthday</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="birthDate">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <div *ngIf="submitted1 && f1.birthDate.errors" class="invalid-feedback">
+              <mat-error *ngIf="f1.birthDate.errors.required">Birthday is required</mat-error>
+            </div>
+            <mat-form-field class="example-full-width">
+              <mat-label>Choose Speciality</mat-label>
+              <mat-select formControlName="speciality">
+                <mat-option [value]="spec" *ngFor="let spec of Specs">{{spec}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div *ngIf="submitted1 && f1.speciality.errors" class="invalid-feedback">
+              <mat-error *ngIf="f1.speciality.errors.required">Speciality is required</mat-error>
+            </div>
+          </div>
+          <div>
+            <button mat-button matStepperNext (click)="onSubmit1()">Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Login Info</ng-template>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Username" formControlName="username">
+            <div *ngIf="submitted2 && f2.username.errors" class="invalid-feedback">
+              <mat-error *ngIf="f2.username.errors.required">Username is required</mat-error>
+              <mat-error *ngIf="f2.username.errors.minlength">Username must be at least 3 characters</mat-error>
+            </div>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email" formControlName="email">
+          </mat-form-field>
+          <div *ngIf="submitted2 && f2.email.errors" class="invalid-feedback">
+            <mat-error *ngIf="f2.email.errors.required">Username is required</mat-error>
+          </div>
+          <mat-form-field class="example-full-width">
+            <input matInput [type]="'password'" placeholder="Password" formControlName="password">
+          </mat-form-field>
+          <div *ngIf="submitted2 && f2.password.errors" class="invalid-feedback">
+            <mat-error *ngIf="f2.password.errors.required">Password is required</mat-error>
+            <mat-error *ngIf="f2.password.errors.minlength">Password must be at least 6 characters</mat-error>
+          </div>
+          <mat-form-field class="example-full-width">
+            <input matInput [type]="'password'" placeholder="Confirm Password">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Choose Role</mat-label>
+            <mat-select formControlName="role">
+              <mat-option [value]="user" *ngFor="let user of User">{{user}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div *ngIf="submitted2 && f2.role.errors" class="invalid-feedback">
+            <mat-error *ngIf="f2.role.errors.required">Role is required</mat-error>
+          </div>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext (click)="onSubmit2()">Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+          <section class="example-section">
+            <mat-checkbox class="example-margin" [(ngModel)]="checked"><strong>I agree on the terms and
+              conditions</strong>
+            </mat-checkbox>
+            <p>checking this box you will automatically sign a <strong>smart contract</strong></p>
+            <p>agreement for the terms and conditions</p>
+          </section>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+          <button mat-stroked-button color="primary" class="btn-block" [disabled]="!checked" style="float: right"
+                  (click)="onSubmit()">
+            Sign-up
+          </button>
+        </div>
+        <div style="margin-top: 100px">
+          <div class="ui active centered inline loader" style="margin-top: 5px; margin-bottom: -15px" *ngIf="loading"
+          ></div>
+          <div class="ui red inverted segment" *ngIf="isLoginFailed">{{errorMessage}}</div>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </mat-card>
+  <div class="ui message">
+    <a routerLink="/auth/signin" routerLinkActive="active">Sign In with an existing account</a>
+  </div>
+</div>

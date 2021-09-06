@@ -1,0 +1,27 @@
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+<div fxLayout="row" fxLayoutAlign="space-between none"><h2 mat-dialog-title>Documents List</h2>
+  <div class="right floated content" *ngIf="isEditable">
+    <input type="file" class="ui button" (change)="onSelect($event)">
+    <div class="ui button" *ngIf="show" (click)="add()">Add</div>
+  </div>
+</div>
+<mat-dialog-content class="mat-typography" style="width: 800px; height: 500px">
+  <div class="ui middle aligned divided list" *ngFor="let item of data.documents">
+    <div class="item">
+      <div class="right floated content" *ngIf="isEditable">
+        <div class="ui button" (click)="onRemove(item.id)">Remove Document</div>
+      </div>
+      <div class="ui mini image">
+        <img src="/assets/doc.jpg">
+      </div>
+      <div class="middle aligned content">
+        <a [href]="'http://localhost:8088/api/formation/download/'+item.id" target="_self"
+           class="ui small header">{{item.filename}}</a>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+</mat-dialog-actions>

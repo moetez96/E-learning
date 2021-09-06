@@ -1,0 +1,88 @@
+<div fxLayout="column" fxLayoutAlign="center center" style="padding-top: 70px;">
+
+</div>
+<div style="padding-bottom: 10px;">
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+</div>
+<div class="ui centered grid">
+  <div class="three wide column">
+    <app-documents [documents]="documents" [isEditable]="isEditable" [idf]="formation.id"></app-documents>
+  </div>
+  <div class="eight wide column">
+    <div class="ui segment" style="padding-top: 20px; width: 100%">
+      <mat-progress-bar mode="indeterminate" *ngIf="isLoadingP"></mat-progress-bar>
+      <div>
+        <div style="padding-bottom: 5px">
+          <div *ngIf="formation.meet == null  || formation.link == null">
+            <div class="ui gray message" style="max-width: 200px; float: left;">No Meet is
+              set Yet
+            </div>
+          </div>
+          <div *ngIf="formation.meet != null  || formation.link != null">
+            <a [href]="formation.meet.link" mat-raised-button color="primary" style="float: left;"
+               *ngIf="isParticipated">Meeting
+              Link
+              <mat-icon>event</mat-icon>
+            </a>
+            <div class="ui green message" style="max-width: 150px; float: left; margin: 5px; padding: 3px"
+                 *ngIf="isParticipated || formation.meet != null  || formation.link != null">{{formation.meet.date}}</div>
+          </div>
+          <button mat-raised-button color="primary" style="float: right" (click)="participate()"
+                  *ngIf="!isParticipated && isStudent">
+            Participate
+            <mat-icon>event</mat-icon>
+          </button>
+          <button mat-raised-button color="primary" style="float: right" (click)="cancel()"
+                  *ngIf="isParticipated && isStudent">
+            Cancel
+            <mat-icon>event</mat-icon>
+          </button>
+          <button mat-raised-button color="primary" style="float: right"
+                  *ngIf="!isStudent && isEditable"
+                  (click)="openDialog()">Settings
+            <mat-icon>settings</mat-icon>
+          </button>
+          <button mat-raised-button color="primary" style="float: right" *ngIf="!isStudent && isEditable"
+                  (click)="openDialogDelete()">Delete
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        <div class="card__content">
+          <img class="ui fluid image" style="max-height: 400px"
+               *ngIf="formation.picture == null || formation.picture.id == null"
+               src="assets/formation.jpg"
+          >
+          <img class="ui fluid image" style="max-height: 400px"
+               *ngIf="formation.picture != null && formation.picture.id != null"
+               [src]="'http://localhost:8088/api/formation/download/'+ formation.picture.id"
+          >
+        </div>
+        <div class="ui items">
+          <div class="item">
+            <div class="content">
+              <a class="header">{{formation.name}}</a>
+              <div class="description">
+                <img class="ui avatar image" src="https://semantic-ui.com/images/wireframe/square-image.png ">
+                <span>{{formation.teacher.firstName}} {{formation.teacher.lastName}}</span>
+                <br>
+                <br>
+                <div class="ui fluid" style="overflow-wrap: break-word;
+                      word-wrap: break-word;
+                      hyphens: auto; max-width: 710px">
+                  <p>
+                    {{formation.description}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-comments [formation]="formation"></app-comments>
+    </div>
+  </div>
+  <div class="three wide column">
+    <app-participants [participants]="formation.listParticipants" [idf]="formation.id"
+                      [isEditable]="isEditable"></app-participants>
+  </div>
+</div>

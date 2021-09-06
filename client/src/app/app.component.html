@@ -1,0 +1,97 @@
+<!--
+<mat-toolbar color="primary" class="app-header">
+  <div><a href="#" target="_blank" class="positronx">Demo</a></div>
+  <span class="nav-tool-items">
+    <a mat-button routerLink="signin" routerLinkActive="active">Signin</a>
+    <a mat-button mat-raised-button routerLink="register" routerLinkActive="active">Signup</a>
+  </span>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
+
+-->
+<!-- <mat-toolbar color="primary" class="app-header">
+  <div>
+    <a mat-button routerLink="home" routerLinkActive="active">Home</a>
+    <a mat-button routerLink="mycourses" routerLinkActive="active">My Courses</a>
+    <a mat-button routerLink="allcourses" routerLinkActive="active">All Courses</a>
+    <a mat-button routerLink="signin" routerLinkActive="active">Classes</a>
+  </div>
+  <span class="nav-tool-items">
+      <ul fxLayout fxLayoutGap="20px" style="padding-bottom: 10px">
+        <ol>
+          <button mat-icon-button [matMenuTriggerFor]="auth">
+            <img
+              src="assets/default.jpg"
+              alt="Avatar" style="border-radius: 50%; max-height: 50px; max-width: 50px">
+          </button>
+          <mat-menu #auth="matMenu">
+            <div fxLayout="column" fxLayoutAlign="space-evenly center" style="padding-bottom: 10px">
+              <img
+                src="assets/default.jpg"
+                alt="Avatar" style="border-radius: 50%; max-height: 50px; max-width: 50px">
+              <div><b>Moetez Ayari</b></div>
+              <div>moetez22@gmail.com</div>
+            </div>
+              <mat-divider></mat-divider>
+            <button mat-menu-item (click)="update()">
+              <mat-icon>settings</mat-icon>
+              <span>Update Information</span>
+            </button>
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>exit_to_app</mat-icon>
+              <span>Logout</span>
+            </button>
+          </mat-menu>
+        </ol>
+      </ul>
+  </span>
+</mat-toolbar> -->
+<div
+  [hidden]="route == '/auth/signin' || route == '/auth/register' || route == '/admin' || route == '/admin/list_formations'
+  || route == '/admin/list_users' || route == '/admin/list_admins'">
+  <div class="ui container">
+    <div class="ui large secondary inverted fixed pointing menu" style="background-color: #673AB7">
+      <a class="item" routerLink="home" routerLinkActive="active">Home</a>
+      <a class="item" routerLink="mycourses" routerLinkActive="active" *ngIf="!showAdminBoard">My Courses</a>
+      <a class="item" routerLink="allcourses" routerLinkActive="active">All Courses</a>
+      <div class="right item">
+        <div *ngIf="!isLoggedIn">
+          <a class="ui inverted button" routerLink="auth/signin" routerLinkActive="active" style="margin-right: 5px">Log
+            in</a>
+          <a class="ui inverted button" routerLink="auth/register" routerLinkActive="active">Sign Up</a>
+        </div>
+        <button mat-icon-button [matMenuTriggerFor]="auth" *ngIf="isLoggedIn || currentUser != null">
+          <img
+            src="assets/default.jpg"
+            alt="Avatar" style="border-radius: 50%; max-height: 45px; max-width: 45px">
+        </button>
+        <mat-menu #auth="matMenu">
+          <div fxLayout="column" fxLayoutAlign="space-evenly center">
+            <img
+              src="assets/default.jpg"
+              alt="Avatar" style="border-radius: 50%; max-height: 50px; max-width: 50px">
+            <div *ngIf="isLoggedIn || currentUser != null"><b>{{ currentUser.username }}</b></div>
+            <div *ngIf="isLoggedIn || currentUser != null">{{ currentUser.email }}</div>
+          </div>
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="update()">
+            <mat-icon>settings</mat-icon>
+            <span>Update Information</span>
+          </button>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
+<div class="example-button-container" style="position:fixed; right:50px; bottom:50px;"
+     [hidden]="route == '/auth/signin' || route == '/auth/register' || route == '/home' || !showModeratorBoard">
+  <button mat-fab color="primary" aria-label="Example icon button with a menu icon" (click)="openDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

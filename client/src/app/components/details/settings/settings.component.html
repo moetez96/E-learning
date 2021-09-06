@@ -1,0 +1,8 @@
+<mat-tab-group style="width: 550px; height: 550px">
+  <mat-tab label="Update Formation">
+    <app-update [formation]="data.formation"></app-update>
+  </mat-tab>
+  <mat-tab label="Add Meeting Date">
+    <app-meet [id]="data.formation.id"></app-meet>
+  </mat-tab>
+</mat-tab-group>

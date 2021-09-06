@@ -1,0 +1,39 @@
+<div fxLayout="column" fxLayoutAlign="center center" style="padding-top: 80px;">
+  <h1>All Courses</h1>
+  <div class="ui segment" style="margin-top: -10px; width: 83%; min-height: 620px">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <!--<button mat-raised-button color="primary" [matMenuTriggerFor]="menu" style="margin-right: 10px">
+        <mat-icon>filter_list</mat-icon>
+        Filter By Teacher
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>Item 1</button>
+        <button mat-menu-item>Item 2</button>
+      </mat-menu>
+      -->
+      <button mat-raised-button color="primary" [matMenuTriggerFor]="menuSort" style="margin-right: 10px">
+        <mat-icon>sort</mat-icon>
+        Sort
+      </button>
+      <mat-menu #menuSort="matMenu">
+        <button mat-menu-item (click)="Sort('date')">Date</button>
+        <button mat-menu-item (click)="Sort('name')">Name</button>
+      </mat-menu>
+
+      <!-- <form class="example-form" style="width: 200px; padding-top: 15px">
+         <mat-form-field class="example-full-width" >
+           <input matInput placeholder="Search">
+           <mat-icon matSuffix >search</mat-icon>
+         </mat-form-field>
+       </form>-->
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <app-list-cards [list]="listFormation"></app-list-cards>
+    <div fxLayout="column" fxLayoutAlign="center center" style="padding-top: 10px">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <div *ngIf="show">No Formations exist for your speciality</div>
+    </div>
+  </div>
+</div>

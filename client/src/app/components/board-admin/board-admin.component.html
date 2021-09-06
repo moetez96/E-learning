@@ -1,0 +1,26 @@
+<div style=" -webkit-font-smoothing: antialiased;
+        -moz-font-smoothing: grayscale;">
+  <div class="ui tablet computer only padded grid">
+    <div class="ui inverted borderless top fixed fluid menu">
+      <a class="header item">Dashboard</a>
+      <div class="right menu">
+        <a class="item" (click)="logout()">Logout</a>
+      </div>
+    </div>
+  </div>
+  <div class="ui padded grid">
+    <div class="three wide tablet only three wide computer only column" id="sidebar">
+      <div class="ui vertical borderless fluid text menu">
+        <a class="active item" routerLink="list_formations" routerLinkActive="active">Formations</a>
+        <a class="item" routerLink="list_users" routerLinkActive="active">Users</a>
+        <div class="ui hidden divider"></div>
+        <a class="item" routerLink="list_admins" routerLinkActive="active">Admins</a>
+      </div>
+    </div>
+    <div class="sixteen wide mobile thirteen wide tablet thirteen wide computer right floated column" id="content">
+      <div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

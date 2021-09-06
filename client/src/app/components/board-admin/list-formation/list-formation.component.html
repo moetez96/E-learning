@@ -1,0 +1,41 @@
+<div class="row">
+  <h1 class="ui huge dividing header">Formations List</h1>
+</div>
+<div class="row" style="padding-top: 5px">
+  <table class="ui single line striped selectable unstackable table">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Date</th>
+      <th>Teacher</th>
+      <th>Participants</th>
+      <th>Options</th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let formation of listFormations">
+    <tr>
+      <td>{{formation.name}}</td>
+      <td>{{formation.type}}</td>
+      <td>{{formation.startDate}} - {{formation.endDate}}</td>
+      <td>{{formation.teacher.firstName}} {{formation.teacher.firstName}}</td>
+      <td><a (click)="openDialog(formation.listParticipants, formation.id)">{{formation.listParticipants.length}}</a></td>
+      <td>
+        <button class="ui secondary button" (click)="delete(formation.id)"
+                *ngIf="deleteLoading.id != formation.id">
+          Delete
+        </button>
+        <button class="ui secondary loading button" *ngIf="deleteLoading.id == formation.id && deleteLoading.loading">
+          Loading
+        </button>
+        <button class="ui primary button" (click)="Details(formation.id)">
+          Details
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+  </div>
+</div>

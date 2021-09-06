@@ -1,0 +1,19 @@
+<div class="ui comments" style="padding-top: 15px">
+  <h3 class="ui dividing header">Comments</h3>
+  <div *ngIf="formation.comments != null">
+    <div *ngFor="let comment of formation.comments">
+      <app-comment [comment]="comment" (commentsChanged)="commentsChangedHandler($event)"></app-comment>
+    </div>
+  </div>
+  <form class="ui reply form" [formGroup]="commentForm" (ngSubmit)="addComment()" novalidate>
+    <div class="field">
+      <textarea formControlName="comment"></textarea>
+    </div>
+    <div class="ui blue labeled submit icon button" *ngIf="!loading" (click)="addComment()">
+      <i class="icon edit"></i> Add Reply
+    </div>
+    <div class="ui blue labeled submit icon loading button" *ngIf="loading">
+      <i class="icon edit"></i> Add Reply
+    </div>
+  </form>
+</div>

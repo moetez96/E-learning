@@ -1,0 +1,40 @@
+<div class="main-wrapper" fxLayout="column" fxLayoutAlign="center center" style="padding-top: 100px">
+  <mat-card class="box" style="padding: 20px 20px 20px 20px">
+    <mat-card-header>
+      <mat-card-title>Log In</mat-card-title>
+    </mat-card-header>
+
+    <form class="example-form" [formGroup]="loginFormGroup" (ngSubmit)="onSubmit()" novalidate>
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Username" formControlName="username">
+        </mat-form-field>
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+          <mat-error *ngIf="f.username.errors.required">username is required</mat-error>
+          <mat-error *ngIf="f.username.errors.minlength">username must be at least 3 characters</mat-error>
+        </div>
+        <mat-form-field class="example-full-width">
+          <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" formControlName="password"
+                 required>
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide" name="password" required>
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <mat-error *ngIf="f.password.errors.required">Password is required</mat-error>
+          <mat-error *ngIf="f.password.errors.minlength">Password must be at least 6 characters</mat-error>
+        </div>
+      </mat-card-content>
+      <button mat-stroked-button color="primary" class="btn-block" (click)="onSubmit()">Log-in</button>
+      <div class="ui active centered inline loader" style="margin-top: 5px; margin-bottom: -15px" *ngIf="loading"
+      ></div>
+      <div class="ui red inverted segment" *ngIf="isLoginFailed">Username or password is wrong</div>
+    </form>
+    <p></p>
+  </mat-card>
+  <div class="ui message">
+    Don't have an account ? <a routerLink="/auth/register" routerLinkActive="active">Create One</a>
+  </div>
+</div>
+

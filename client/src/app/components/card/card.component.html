@@ -1,0 +1,28 @@
+<div class="ui card" style="max-height: 400px; margin: 10px" (click)="onClick()">
+  <div class="image" style="max-height: 150px">
+    <a class="ui blue ribbon label">{{formation.type}}</a>
+    <img style="max-height: 200px" *ngIf="formation.picture == null || formation.picture.id == null"
+         src="assets/formation.jpg"
+    >
+    <img style="max-height: 200px" *ngIf="formation.picture != null && formation.picture.id != null"
+         [src]="'http://localhost:8088/api/formation/download/'+ formation.picture.id"
+    ></div>
+  <div class="content">
+    <div class="header">{{formation.name}}</div>
+    <div class="meta">
+      <a>{{formation.startDate}} - {{formation.endDate}}</a>
+    </div>
+    <div class="description">
+      Formation Description
+    </div>
+  </div>
+  <div class="extra content">
+      <span class="right floated">
+        {{formation.teacher.firstName}} {{formation.teacher.lastName}}
+      </span>
+    <span>
+        <i class="user icon"></i>
+      {{participants.length}} Participants
+      </span>
+  </div>
+</div>

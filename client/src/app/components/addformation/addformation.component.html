@@ -1,0 +1,52 @@
+<h2 mat-dialog-title>Add Formation</h2>
+<mat-dialog-content class="mat-typography">
+  <form class="example-form" fxLayout="column" fxLayoutAlign="center start" style="width: 400px"
+        [formGroup]="addFormGroup">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Formation Name" formControlName="name">
+    </mat-form-field>
+    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+      <mat-error *ngIf="f.name.errors.required">Title is required</mat-error>
+    </div>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput placeholder="Formation Description ... " formControlName="description"></textarea>
+    </mat-form-field>
+    <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+      <mat-error *ngIf="f.description.errors.required">Title is required</mat-error>
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Select Type</mat-label>
+      <mat-select [(value)]="selected" formControlName="type">
+        <mat-option value="Web_Dev">Web Dev</mat-option>
+        <mat-option value="Mobile_Dev">Mobile Dev</mat-option>
+        <mat-option value="IOT">IOT</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+      <mat-error *ngIf="f.type.errors">type is required</mat-error>
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter Start and End Date</mat-label>
+      <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+        <input matStartDate formControlName="start" placeholder="Start date">
+        <input matEndDate formControlName="end" placeholder="End date">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+
+      <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+      <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+    </mat-form-field>
+    <input type="file" class="ui button" (change)="onSelect($event)">
+  </form>
+  <div class="ui active centered inline loader" style="margin-top: 5px;" *ngIf="loading"
+  ></div>
+  <div class="ui green inverted segment" *ngIf="isSuccess">Formation Added</div>
+  <div class="ui red inverted segment" *ngIf="isFailed">{{errorMessage}}</div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button cdkFocusInitial (click)="onSubmit()">Add</button>
+</mat-dialog-actions>
